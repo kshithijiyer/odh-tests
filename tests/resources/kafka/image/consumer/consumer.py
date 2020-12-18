@@ -2,7 +2,10 @@ from kafka import KafkaConsumer
 import os
 import json
 
-consumer = KafkaConsumer("test",group_id="test-group",auto_offset_reset='earliest',bootstrap_servers='odh-message-bus-kafka-bootstrap.%s.svc.cluster.local:9092' % os.environ['NAMESPACE'])
+consumer = KafkaConsumer(
+    "test", group_id="test-group", auto_offset_reset='earliest',
+    bootstrap_servers='odh-message-bus-kafka-bootstrap.'
+    '{}.svc.cluster.local:9092'.format(os.environ['NAMESPACE']))
 
 try:
     for record in consumer:
